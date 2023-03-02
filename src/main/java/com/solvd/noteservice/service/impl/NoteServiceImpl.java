@@ -21,7 +21,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     @Transactional
     public Note create(Note note) {
-        Boolean isExistByUserId = restTemplate.getForObject("http://localhost:8082/api/v1/users/{id}",
+        Boolean isExistByUserId = restTemplate.getForObject("http://user/api/v1/users/{id}",
                 Boolean.class,
                 note.getUserId());
         if (Boolean.FALSE.equals(isExistByUserId)) {
