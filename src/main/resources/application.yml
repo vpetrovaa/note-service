@@ -1,1 +1,18 @@
+server:
+  port: 8083
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/postgres?currentSchema=notes_schema
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  jackson:
+    default-property-inclusion: non_null
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-master.yaml
 
