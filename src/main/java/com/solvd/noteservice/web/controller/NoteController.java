@@ -32,7 +32,7 @@ public class NoteController {
         return noteMapper.toDtoList(notes);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/exists/{id}")
     public boolean isExistById(@PathVariable Long id) {
         return noteService.isExistById(id);
     }
