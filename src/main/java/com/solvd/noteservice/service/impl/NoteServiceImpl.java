@@ -19,6 +19,11 @@ public class NoteServiceImpl implements NoteService {
     private final RestTemplate restTemplate;
 
     @Override
+    public boolean isExistById(Long id) {
+        return noteRepository.existsById(id);
+    }
+
+    @Override
     @Transactional
     public Note create(Note note) {
         Boolean isExistByUserId = restTemplate.getForObject("http://user/api/v1/users/{id}",

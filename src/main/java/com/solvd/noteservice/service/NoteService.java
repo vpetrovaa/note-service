@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface NoteService {
 
+    boolean isExistById(Long id);
+
     Note create(Note note);
 
     List<Note> findAllByUserId(Long userId);

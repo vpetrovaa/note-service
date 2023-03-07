@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
+    boolean existsById(Long id);
+
     List<Note> findAllByUserId(Long userId);
 
 }
