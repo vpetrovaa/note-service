@@ -14,6 +14,10 @@ public class Note {
 
     private String description;
 
+    private String theme;
+
+    private String tag;
+
     @Column(name = "user_id")
     private Long userId;
 

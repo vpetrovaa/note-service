@@ -18,6 +18,8 @@ create table if not exists notes
 (
     id bigserial,
 	description varchar(200) not null,
+	theme varchar(100) not null,
+    tag varchar(100) not null,
 	user_id bigint not null,
     foreign key (user_id) references users (id) on update cascade on delete cascade,
 	primary key (id)
