@@ -1,6 +1,7 @@
 package com.solvd.noteservice.service.impl;
 
 import com.solvd.noteservice.domain.Note;
+import com.solvd.noteservice.domain.exception.IllegalOperationException;
 import com.solvd.noteservice.domain.exception.ResourceDoesNotExistException;
 import com.solvd.noteservice.repository.NoteRepository;
 import com.solvd.noteservice.service.NoteService;
@@ -39,6 +40,32 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public List<Note> findAllByUserId(Long userId) {
         return noteRepository.findAllByUserId(userId);
+    }
+
+    @Override
+    public List<Note> findAll() {
+        return noteRepository.findAll();
+    }
+
+    @Override
+    public Note findById(Long id) {
+        Note note = noteRepository.findById(id)
+                .orElseThrow(() -> new ResourceDoesNotExistException("There are no note with id" + id));
+        return note;
+    }
+
+    @Override
+    public Note update(Note note) {
+        Note noteFromDb = noteRepository.findById(note.getId()).get();
+        if (!noteFromDb.getTheme().equals(note.getTheme())) {
+            throw new IllegalOperationException("You cant change the theme of note");
+        }
+        return noteRepository.save(note);
+    }
+
+    @Override
+    public void delete(Long id) {
+        noteRepository.deleteById(id);
     }
 
 }

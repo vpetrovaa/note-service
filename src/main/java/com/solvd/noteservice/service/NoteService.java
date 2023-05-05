@@ -12,4 +12,12 @@ public interface NoteService {
 
     List<Note> findAllByUserId(Long userId);
 
+    List<Note> findAll();
+
+    Note findById(Long id);
+
+    Note update(Note note);
+
+    void delete(Long id);
+
 }
