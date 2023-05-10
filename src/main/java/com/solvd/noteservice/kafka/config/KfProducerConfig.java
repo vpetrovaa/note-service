@@ -24,7 +24,7 @@ public class KfProducerConfig {
     private final KfProperties kfProperties;
 
     @Bean
-    public NewTopic topic() {
+    public final NewTopic topic() {
         return TopicBuilder.name(kfProperties.getTopic())
                 .partitions(kfProperties.getPartitions())
                 .replicas(kfProperties.getReplicas())
@@ -32,21 +32,24 @@ public class KfProducerConfig {
     }
 
     @Bean
-    public Map<String, Object> producerConfigs() {
+    public final Map<String, Object> producerConfigs() {
         Map<String, Object> config = new HashMap<>();
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kfProperties.getPort());
-        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
+                kfProperties.getPort());
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+                StringSerializer.class);
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+                JsonSerializer.class);
         return config;
     }
 
     @Bean
-    public ProducerFactory<String, NoteEvent> producerFactory() {
+    public final ProducerFactory<String, NoteEvent> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, NoteEvent> kafkaTemplate() {
+    public final KafkaTemplate<String, NoteEvent> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 

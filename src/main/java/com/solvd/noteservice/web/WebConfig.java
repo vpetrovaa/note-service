@@ -13,9 +13,11 @@ public class WebConfig {
 
     @Bean
     @LoadBalanced
-    RestTemplate restTemplate() {
+    final RestTemplate restTemplate() {
         ClientHttpRequestFactory requestFactory = new
-                HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
+                HttpComponentsClientHttpRequestFactory(
+                        HttpClients.createDefault()
+        );
 
         return new RestTemplate(requestFactory);
     }

@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KfProducerImpl implements KfProducer{
+public class KfProducerImpl implements KfProducer {
 
     private final KafkaTemplate<String, NoteEvent> kafkaTemplate;
     private final KfProperties kfProperties;
 
     @Override
-    public void sendMessage(NoteEvent event) {
+    public final void sendMessage(final NoteEvent event) {
         kafkaTemplate.send(kfProperties.getTopic(), event);
     }
 

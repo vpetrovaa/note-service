@@ -25,20 +25,22 @@ public class NoteServiceImpl implements NoteService {
     private final KfProducer kfProducer;
 
     @Override
-    public boolean isExistById(Long id) {
+    public final boolean isExistById(final Long id) {
         return elasticClient.isExistById(id);
     }
 
     @Override
     @Transactional
-    public Note create(Note note) {
-        Boolean isExistByUserId = restTemplate.getForObject("http://user/api/v1/users/{id}",
+    public final Note create(final Note note) {
+        Boolean isExistByUserId = restTemplate
+                .getForObject("http://user/api/v1/users/{id}",
                 Boolean.class,
                 note.getUserId());
         if (Boolean.FALSE.equals(isExistByUserId)) {
-            throw new ResourceDoesNotExistException("There are no user with id " + note.getUserId());
+            throw new ResourceDoesNotExistException(
+                    "There are no user with id " + note.getUserId()
+            );
         }
-        note = noteRepository.save(note);
 
         NoteEvent noteEvent = new NoteEvent();
         noteEvent.setType(NoteEvent.Method.POST);
@@ -48,33 +50,36 @@ public class NoteServiceImpl implements NoteService {
         noteEvent.setTag(note.getTag());
         noteEvent.setUserId(note.getUserId());
         kfProducer.sendMessage(noteEvent);
-        return note;
+        return noteRepository.save(note);
     }
 
     @Override
-    public List<Note> findAllByUserId(Long userId) {
+    public final List<Note> findAllByUserId(final Long userId) {
         return elasticClient.findAllByUserId(userId);
     }
 
     @Override
-    public List<Note> findAll() {
+    public final List<Note> findAll() {
         return elasticClient.findAll();
     }
 
     @Override
-    public Note findById(Long id) {
+    public final Note findById(final Long id) {
         Note note = elasticClient.findById(id)
-                .orElseThrow(() -> new ResourceDoesNotExistException("There are no note with id" + id));
+                .orElseThrow(() -> new ResourceDoesNotExistException(
+                        "There are no note with id" + id)
+                );
         return note;
     }
 
     @Override
-    public Note update(Note note) {
+    public final Note update(final Note note) {
         Note noteFromDb = noteRepository.findById(note.getId()).get();
         if (!noteFromDb.getTheme().equals(note.getTheme())) {
-            throw new IllegalOperationException("You cant change the theme of note");
+            throw new IllegalOperationException(
+                    "You cant change the theme of note"
+            );
         }
-        note = noteRepository.save(note);
 
         NoteEvent noteEvent = new NoteEvent();
         noteEvent.setType(NoteEvent.Method.PUT);
@@ -84,11 +89,11 @@ public class NoteServiceImpl implements NoteService {
         noteEvent.setTag(note.getTag());
         noteEvent.setUserId(note.getUserId());
         kfProducer.sendMessage(noteEvent);
-        return note;
+        return noteRepository.save(note);
     }
 
     @Override
-    public void delete(Long id) {
+    public final void delete(final Long id) {
         noteRepository.deleteById(id);
 
         NoteEvent noteEvent = new NoteEvent();
