@@ -27,6 +27,7 @@
 		<validation.version>3.0.2</validation.version>
 		<httpcomponents.version>5.2.1</httpcomponents.version>
 		<eureka.version>4.0.0</eureka.version>
+		<openfeign.version>4.0.1</openfeign.version>
 	</properties>
 
 	<dependencies>
@@ -95,6 +96,17 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 			<version>${eureka.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<version>${openfeign.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
 	</dependencies>

@@ -22,3 +22,15 @@ eureka:
   client:
     service-url:
       defaultZone: http://${EUREKA_HOST}:8761/eureka
+
+
+kafka:
+  topic: notes
+  partitions: 10
+  replicas: 1
+  port: ${KAFKA_HOST}:9092
+  key: ${KAFKA_KEY}
+
+open:
+  feign:
+    host: ${FEIGN_HOST}
