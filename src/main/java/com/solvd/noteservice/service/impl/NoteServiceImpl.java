@@ -25,13 +25,13 @@ public class NoteServiceImpl implements NoteService {
     private final KfProducer kfProducer;
 
     @Override
-    public final boolean isExistById(final Long id) {
+    public boolean isExistById(final Long id) {
         return elasticClient.isExistById(id);
     }
 
     @Override
     @Transactional
-    public final Note create(final Note note) {
+    public Note create(final Note note) {
         Boolean isExistByUserId = restTemplate
                 .getForObject("http://user/api/v1/users/{id}",
                 Boolean.class,
@@ -54,17 +54,17 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public final List<Note> findAllByUserId(final Long userId) {
+    public List<Note> findAllByUserId(final Long userId) {
         return elasticClient.findAllByUserId(userId);
     }
 
     @Override
-    public final List<Note> findAll() {
+    public List<Note> findAll() {
         return elasticClient.findAll();
     }
 
     @Override
-    public final Note findById(final Long id) {
+    public Note findById(final Long id) {
         Note note = elasticClient.findById(id)
                 .orElseThrow(() -> new ResourceDoesNotExistException(
                         "There are no note with id" + id)
@@ -73,7 +73,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public final Note update(final Note note) {
+    public Note update(final Note note) {
         Note noteFromDb = noteRepository.findById(note.getId()).get();
         if (!noteFromDb.getTheme().equals(note.getTheme())) {
             throw new IllegalOperationException(
@@ -93,7 +93,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public final void delete(final Long id) {
+    public void delete(final Long id) {
         noteRepository.deleteById(id);
 
         NoteEvent noteEvent = new NoteEvent();

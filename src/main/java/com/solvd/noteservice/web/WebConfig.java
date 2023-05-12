@@ -13,7 +13,7 @@ public class WebConfig {
 
     @Bean
     @LoadBalanced
-    final RestTemplate restTemplate() {
+    RestTemplate restTemplate() {
         ClientHttpRequestFactory requestFactory = new
                 HttpComponentsClientHttpRequestFactory(
                         HttpClients.createDefault()

@@ -28,6 +28,8 @@
 		<httpcomponents.version>5.2.1</httpcomponents.version>
 		<eureka.version>4.0.0</eureka.version>
 		<openfeign.version>4.0.1</openfeign.version>
+		<junit.version>5.8.1</junit.version>
+		<mockito.version>4.6.1</mockito.version>
 	</properties>
 
 	<dependencies>
@@ -107,6 +109,27 @@
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>

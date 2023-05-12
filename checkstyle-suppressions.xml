@@ -9,4 +9,7 @@
     <suppress checks="HideUtilityClassConstructor" files="."/>
     <suppress checks="FileTabCharacter" files="."/>
     <suppress files="NoteMapperImpl\.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="KfProducerConfig\.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="WebConfig\.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="NoteServiceImpl\.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>

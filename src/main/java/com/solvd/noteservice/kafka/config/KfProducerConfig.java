@@ -24,7 +24,7 @@ public class KfProducerConfig {
     private final KfProperties kfProperties;
 
     @Bean
-    public final NewTopic topic() {
+    public NewTopic topic() {
         return TopicBuilder.name(kfProperties.getTopic())
                 .partitions(kfProperties.getPartitions())
                 .replicas(kfProperties.getReplicas())
@@ -32,7 +32,7 @@ public class KfProducerConfig {
     }
 
     @Bean
-    public final Map<String, Object> producerConfigs() {
+    public Map<String, Object> producerConfigs() {
         Map<String, Object> config = new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
                 kfProperties.getPort());
@@ -44,12 +44,12 @@ public class KfProducerConfig {
     }
 
     @Bean
-    public final ProducerFactory<String, NoteEvent> producerFactory() {
+    public ProducerFactory<String, NoteEvent> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public final KafkaTemplate<String, NoteEvent> kafkaTemplate() {
+    public KafkaTemplate<String, NoteEvent> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
