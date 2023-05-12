@@ -42,7 +42,6 @@ public class NoteServiceImpl implements NoteService {
             );
         }
         note = noteRepository.save(note);
-
         NoteEvent noteEvent = new NoteEvent();
         noteEvent.setType(NoteEvent.Method.POST);
         noteEvent.setId(note.getId());
@@ -82,7 +81,6 @@ public class NoteServiceImpl implements NoteService {
             );
         }
         note = noteRepository.save(note);
-
         NoteEvent noteEvent = new NoteEvent();
         noteEvent.setType(NoteEvent.Method.PUT);
         noteEvent.setId(note.getId());
@@ -97,7 +95,6 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public void delete(final Long id) {
         noteRepository.deleteById(id);
-
         NoteEvent noteEvent = new NoteEvent();
         noteEvent.setType(NoteEvent.Method.DELETE);
         noteEvent.setId(id);
