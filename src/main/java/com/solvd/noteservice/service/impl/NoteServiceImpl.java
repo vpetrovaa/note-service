@@ -31,7 +31,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     @Transactional
-    public Note create(final Note note) {
+    public Note create(Note note) {
         Boolean isExistByUserId = restTemplate
                 .getForObject("http://user/api/v1/users/{id}",
                 Boolean.class,
@@ -41,6 +41,7 @@ public class NoteServiceImpl implements NoteService {
                     "There are no user with id " + note.getUserId()
             );
         }
+        note = noteRepository.save(note);
 
         NoteEvent noteEvent = new NoteEvent();
         noteEvent.setType(NoteEvent.Method.POST);
@@ -50,7 +51,7 @@ public class NoteServiceImpl implements NoteService {
         noteEvent.setTag(note.getTag());
         noteEvent.setUserId(note.getUserId());
         kfProducer.sendMessage(noteEvent);
-        return noteRepository.save(note);
+        return note;
     }
 
     @Override
@@ -73,13 +74,14 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note update(final Note note) {
+    public Note update(Note note) {
         Note noteFromDb = noteRepository.findById(note.getId()).get();
         if (!noteFromDb.getTheme().equals(note.getTheme())) {
             throw new IllegalOperationException(
                     "You cant change the theme of note"
             );
         }
+        note = noteRepository.save(note);
 
         NoteEvent noteEvent = new NoteEvent();
         noteEvent.setType(NoteEvent.Method.PUT);
@@ -89,7 +91,7 @@ public class NoteServiceImpl implements NoteService {
         noteEvent.setTag(note.getTag());
         noteEvent.setUserId(note.getUserId());
         kfProducer.sendMessage(noteEvent);
-        return noteRepository.save(note);
+        return note;
     }
 
     @Override
