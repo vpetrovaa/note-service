@@ -9,6 +9,7 @@ import com.solvd.noteservice.repository.NoteRepository;
 import com.solvd.noteservice.service.NoteService;
 import com.solvd.noteservice.service.client.ElasticClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoteServiceImpl implements NoteService {
 
+    @Value("${template.host}")
+    private String templateHost;
     private final NoteRepository noteRepository;
     private final ElasticClient elasticClient;
     private final RestTemplate restTemplate;
@@ -33,7 +36,7 @@ public class NoteServiceImpl implements NoteService {
     @Transactional
     public Note create(Note note) {
         Boolean isExistByUserId = restTemplate
-                .getForObject("http://user/api/v1/users/{id}",
+                .getForObject("http://"+ templateHost + "/api/v1/users/{id}",
                 Boolean.class,
                 note.getUserId());
         if (Boolean.FALSE.equals(isExistByUserId)) {

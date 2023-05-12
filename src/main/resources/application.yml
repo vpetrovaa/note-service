@@ -34,3 +34,6 @@ kafka:
 open:
   feign:
     host: ${FEIGN_HOST}
+
+template:
+  host: ${TEMPLATE_HOST}
