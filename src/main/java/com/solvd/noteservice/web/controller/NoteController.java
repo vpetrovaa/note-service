@@ -6,7 +6,14 @@ import com.solvd.noteservice.web.dto.NoteDto;
 import com.solvd.noteservice.web.mapper.NoteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,44 +26,45 @@ public class NoteController {
     private final NoteMapper noteMapper;
 
     @PostMapping
-    public NoteDto create(@RequestBody @Validated NoteDto noteDto) {
+    public final NoteDto create(@RequestBody @Validated final NoteDto noteDto) {
         Note note = noteMapper.toEntity(noteDto);
         note = noteService.create(note);
         return noteMapper.toDto(note);
     }
 
     @GetMapping("/users/{userId}")
-    public List<NoteDto> findAllByUserId(@PathVariable("userId") Long userId) {
+    public final List<NoteDto> findAllByUserId(@PathVariable("userId")
+                                                   final Long userId) {
         List<Note> notes = noteService.findAllByUserId(userId);
         return noteMapper.toDtoList(notes);
     }
 
     @GetMapping
-    public List<NoteDto> findAll() {
+    public final List<NoteDto> findAll() {
         List<Note> notes = noteService.findAll();
         return noteMapper.toDtoList(notes);
     }
 
     @GetMapping("/{id}")
-    public NoteDto findById(@PathVariable("id") Long id) {
+    public final NoteDto findById(@PathVariable("id") final Long id) {
         Note note = noteService.findById(id);
         return noteMapper.toDto(note);
     }
 
     @GetMapping("/exists/{id}")
-    public boolean isExistById(@PathVariable Long id) {
+    public final boolean isExistById(@PathVariable final Long id) {
         return noteService.isExistById(id);
     }
 
     @PutMapping
-    public NoteDto update(@RequestBody @Validated NoteDto noteDto) {
+    public final NoteDto update(@RequestBody @Validated final NoteDto noteDto) {
         Note note = noteMapper.toEntity(noteDto);
         note = noteService.update(note);
         return noteMapper.toDto(note);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public final void delete(@PathVariable final Long id) {
         noteService.delete(id);
     }
 

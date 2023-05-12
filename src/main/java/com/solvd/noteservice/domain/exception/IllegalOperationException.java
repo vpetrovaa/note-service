@@ -1,8 +1,8 @@
 package com.solvd.noteservice.domain.exception;
 
-public class IllegalOperationException extends RuntimeException{
+public class IllegalOperationException extends RuntimeException {
 
-    public IllegalOperationException(String message) {
+    public IllegalOperationException(final String message) {
         super(message);
     }
 
