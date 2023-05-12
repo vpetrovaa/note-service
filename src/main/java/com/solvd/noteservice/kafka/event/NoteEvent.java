@@ -17,7 +17,7 @@ public class NoteEvent {
     private Long userId;
 
     public enum Method {
-        UPDATE, DELETE, SAVE;
+        PUT, DELETE, POST;
     }
 
 }

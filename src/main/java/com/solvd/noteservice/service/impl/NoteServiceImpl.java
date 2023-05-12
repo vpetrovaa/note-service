@@ -44,7 +44,7 @@ public class NoteServiceImpl implements NoteService {
         note = noteRepository.save(note);
 
         NoteEvent noteEvent = new NoteEvent();
-        noteEvent.setType(NoteEvent.Method.SAVE);
+        noteEvent.setType(NoteEvent.Method.POST);
         noteEvent.setId(note.getId());
         noteEvent.setDescription(note.getDescription());
         noteEvent.setTheme(note.getTheme());
@@ -84,7 +84,7 @@ public class NoteServiceImpl implements NoteService {
         note = noteRepository.save(note);
 
         NoteEvent noteEvent = new NoteEvent();
-        noteEvent.setType(NoteEvent.Method.UPDATE);
+        noteEvent.setType(NoteEvent.Method.PUT);
         noteEvent.setId(note.getId());
         noteEvent.setDescription(note.getDescription());
         noteEvent.setTheme(note.getTheme());
