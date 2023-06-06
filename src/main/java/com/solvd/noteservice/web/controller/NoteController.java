@@ -5,6 +5,9 @@ import com.solvd.noteservice.service.NoteService;
 import com.solvd.noteservice.web.dto.NoteDto;
 import com.solvd.noteservice.web.mapper.NoteMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,45 +29,52 @@ public class NoteController {
     private final NoteMapper noteMapper;
 
     @PostMapping
-    public final NoteDto create(@RequestBody @Validated final NoteDto noteDto) {
-        Note note = noteMapper.toEntity(noteDto);
-        note = noteService.create(note);
-        return noteMapper.toDto(note);
+    @MutationMapping
+    public final NoteDto create(@RequestBody @Validated @Argument final NoteDto note) {
+        Note noteMapped = noteMapper.toEntity(note);
+        Note noteSaved = noteService.create(noteMapped);
+        return noteMapper.toDto(noteSaved);
     }
 
     @GetMapping("/users/{userId}")
+    @QueryMapping
     public final List<NoteDto> findAllByUserId(@PathVariable("userId")
-                                                   final Long userId) {
+                                                   @Argument final Long userId) {
         List<Note> notes = noteService.findAllByUserId(userId);
         return noteMapper.toDtoList(notes);
     }
 
     @GetMapping
+    @QueryMapping
     public final List<NoteDto> findAll() {
         List<Note> notes = noteService.findAll();
         return noteMapper.toDtoList(notes);
     }
 
     @GetMapping("/{id}")
-    public final NoteDto findById(@PathVariable("id") final Long id) {
+    @QueryMapping
+    public final NoteDto findById(@PathVariable("id") @Argument final Long id) {
         Note note = noteService.findById(id);
         return noteMapper.toDto(note);
     }
 
     @GetMapping("/exists/{id}")
-    public final boolean isExistById(@PathVariable final Long id) {
+    @QueryMapping
+    public final boolean isExistById(@PathVariable @Argument final Long id) {
         return noteService.isExistById(id);
     }
 
     @PutMapping
-    public final NoteDto update(@RequestBody @Validated final NoteDto noteDto) {
-        Note note = noteMapper.toEntity(noteDto);
-        note = noteService.update(note);
-        return noteMapper.toDto(note);
+    @MutationMapping
+    public final NoteDto update(@RequestBody @Validated @Argument final NoteDto note) {
+        Note noteMapped = noteMapper.toEntity(note);
+        noteMapped = noteService.update(noteMapped);
+        return noteMapper.toDto(noteMapped);
     }
 
     @DeleteMapping("/{id}")
-    public final void delete(@PathVariable final Long id) {
+    @MutationMapping
+    public final void delete(@PathVariable @Argument final Long id) {
         noteService.delete(id);
     }
 

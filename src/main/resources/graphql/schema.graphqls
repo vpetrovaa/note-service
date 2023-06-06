@@ -1,0 +1,28 @@
+type Note {
+    id: ID!
+    description: String!
+    theme: String!
+    tag: String!
+    userId: Int!
+}
+
+input InputNote {
+    id: ID!
+    description: String!
+    theme: String!
+    tag: String!
+    userId: Int!
+}
+
+type Query {
+    findAll: [Note]
+    findAllByUserId(userId: Int!): [Note]
+    findById(id: ID!): Note
+    isExistById(id: ID!): Boolean
+}
+
+type Mutation {
+    create(note: InputNote!) : Note
+    update(note: InputNote!) : Note
+    delete(id: ID!): Boolean
+}
