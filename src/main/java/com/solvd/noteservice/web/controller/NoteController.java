@@ -32,8 +32,8 @@ public class NoteController {
     @MutationMapping
     public final NoteDto create(@RequestBody @Validated @Argument final NoteDto note) {
         Note noteMapped = noteMapper.toEntity(note);
-        noteMapped = noteService.create(noteMapped);
-        return noteMapper.toDto(noteMapped);
+        Note noteSaved = noteService.create(noteMapped);
+        return noteMapper.toDto(noteSaved);
     }
 
     @GetMapping("/users/{userId}")
