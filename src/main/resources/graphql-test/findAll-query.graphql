@@ -1,0 +1,9 @@
+query findAll {
+    findAll {
+        id
+        description
+        theme
+        tag
+        userId
+    }
+}

@@ -1,0 +1,9 @@
+query findAllByUserId($userId: Int!) {
+    findAllByUserId(userId: $userId) {
+        id
+        description
+        theme
+        tag
+        userId
+    }
+}

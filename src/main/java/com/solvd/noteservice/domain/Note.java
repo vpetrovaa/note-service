@@ -8,11 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "notes")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Note {
 
     @Id
