@@ -1,0 +1,3 @@
+query isExistById($id: Int!) {
+    isExistById(id: $id)
+}

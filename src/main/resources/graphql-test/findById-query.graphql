@@ -1,0 +1,9 @@
+query findById($id: Int!) {
+    findById(id : $id) {
+        id
+        description
+        theme
+        tag
+        userId
+    }
+}

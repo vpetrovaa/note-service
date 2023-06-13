@@ -1,0 +1,15 @@
+mutation create {
+    create(note : {
+        id : 1
+        description : "simple note"
+        theme : "simple theme"
+        tag : "1.0"
+        userId : 1
+    }){
+        id
+        description
+        theme
+        tag
+        userId
+    }
+}

@@ -1,0 +1,15 @@
+mutation update($id: Int!) {
+    update(note : {
+        id : $id
+        description : "simple note"
+        theme : "simple theme"
+        tag : "1.0"
+        userId : 1
+    }){
+        id
+        description
+        theme
+        tag
+        userId
+    }
+}
